@@ -204,13 +204,19 @@ def create_data_summary(df: pd.DataFrame, output_path: str) -> bool:
         True if successful, False otherwise
     """
     try:
+        # Convert datetime columns to string for JSON serialization
+        df_for_summary = df.copy()
+        for col in df_for_summary.columns:
+            if df_for_summary[col].dtype == 'datetime64[ns]':
+                df_for_summary[col] = df_for_summary[col].astype(str)
+        
         summary = {
             "total_rows": len(df),
             "total_columns": len(df.columns),
             "column_names": df.columns.tolist(),
             "data_types": df.dtypes.astype(str).to_dict(),
             "missing_values": df.isnull().sum().to_dict(),
-            "numeric_summary": df.describe().to_dict() if len(df.select_dtypes(include=['number']).columns) > 0 else {}
+            "numeric_summary": df_for_summary.describe().to_dict() if len(df_for_summary.select_dtypes(include=['number']).columns) > 0 else {}
         }
         
         # Ensure directory exists
