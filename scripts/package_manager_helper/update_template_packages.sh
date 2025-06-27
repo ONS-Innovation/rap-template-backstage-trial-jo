@@ -2,21 +2,25 @@
 
 set -euo pipefail
 
+DEPENDENCIES=("pandas")
 DEV_DEPENDENCIES=("bandit" "pytest" "pytest-xdist" "ruff" "pytest-cov")
 TEMPLATE_DIR="../../project_template"
 
 # Function to handle package installation and file copying
 handle_package_manager() {
+    # If locally developing, comment this git restore line out
+    # this pulls the package manager files from the template
     git restore Pipfile pyproject.toml
     rm -f Pipfile.lock poetry.lock
 
     local package_manager=$1
     local has_copier=$2
-
     # Determine prefix based on copier
     dev_deps=("${DEV_DEPENDENCIES[@]}")
+    deps=("${DEPENDENCIES[@]}")
     if [[ "${has_copier}" == "true" ]]; then
         dev_deps=("copier" "${DEV_DEPENDENCIES[@]}")
+        deps=("copier" "${DEPENDENCIES[@]}")
         prefix="${package_manager}_copier"
     else
         prefix="not_${package_manager}_copier"
@@ -25,8 +29,10 @@ handle_package_manager() {
     # Install development dependencies
     if [[ "${package_manager}" == "poetry" ]]; then
         poetry add "${dev_deps[@]}" --group dev
+        poetry add "${deps[@]}"
     elif [[ "${package_manager}" == "pipenv" ]]; then
         pipenv install "${dev_deps[@]}" --dev
+        pipenv install "${deps[@]}"
     fi
 
     # Copy lock files to the project_template

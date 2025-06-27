@@ -51,3 +51,8 @@ install-dev:  ## Install the dependencies including dev.
 copier-update:  ## Update the project using the initial copier template.
 	{{ package_manager }} run copier update --trust
 {%- endif %}
+
+.PHONY: run
+run: 
+	{{ package_manager }} run run_etl.py
+
