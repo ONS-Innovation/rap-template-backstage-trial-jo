@@ -132,6 +132,18 @@ To run the security scan, run:
 make security-scan
 ```
 
+### GitHub actions
+
+Linting/formatting and Security Scanning GitHub actions are enabled by default on template repositories. If you go to the `Actions` tab on your [repository](https://github.com/{{repository_owner}}/{{repository_name}}/actions), you can view all the workflows for the repository. If an action has failed, it will show a red circle with a cross in it.
+
+To find out more details about why it failed:
+
+1. Click on the name of the action
+2. Click the job in the Jobs section in the left sidebar
+3. Find the dropdown with the red circle with a cross in it to view more information about the failed action
+
+Please note that the GitHub actions will not automatically fix the errors, you must resolve them locally.
+
 #### Pre-commit Hooks
 
 The project includes pre-commit hooks to automatically run linting, formatting, and security checks before each commit.
