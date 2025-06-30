@@ -59,7 +59,8 @@ ignore = [
     # indentation contains tabs
     "W191",
     # Allow assert to be detected
-    "S101"
+    "S101",
+    "PLR0913"
 ]
 
 [tool.ruff.lint.pydocstyle]
