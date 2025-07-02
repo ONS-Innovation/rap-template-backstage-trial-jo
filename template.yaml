@@ -7,6 +7,7 @@ metadata:
   tags:
     - python
     - etl
+    - rap
   annotations:
     backstage.io/techdocs-ref: dir:.
 spec:
