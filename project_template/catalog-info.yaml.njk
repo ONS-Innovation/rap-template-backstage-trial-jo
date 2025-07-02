@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.repository_name }}
+  description: ${{ values.repository_description | dump }}
+  tags:
+    - python
+    - etl
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: ${{ values.repository_owner }}/${{ values.repository_name }}
+spec:
+  type: module
+  lifecycle: experimental
+  owner: ${{ values.catalog_owner | dump }}
+  {%- if values.catalog_system %}
+  system: ${{ values.catalog_system | dump }}
+  {%- endif %}

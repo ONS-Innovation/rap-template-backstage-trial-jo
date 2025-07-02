@@ -9,15 +9,16 @@ name: CodeQL
 
 on: # yamllint disable-line rule:truthy
   push:
-    branches: [main]
+    branches: [${{ values.default_branch }}]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [main]
+    branches: [${{ values.default_branch }}]
 
   schedule:
     # Run on a daily interval at 12pm UTC
     - cron: "0 12 * * *"
 
+{% raw %}
 concurrency:
   group: "${{ github.head_ref || github.ref }}-${{ github.workflow }}"
   cancel-in-progress: true
@@ -81,3 +82,4 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: /language:${{matrix.language}}
+{% endraw %}

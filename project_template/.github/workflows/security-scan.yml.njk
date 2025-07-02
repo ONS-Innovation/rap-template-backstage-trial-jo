@@ -3,14 +3,14 @@ name: Security Scan
 
 on: # yamllint disable-line rule:truthy
   push:
-    branches: [main]
+    branches: [${{ values.default_branch }}]
   pull_request:
-    branches: [main]
+    branches: [${{ values.default_branch }}]
 
 concurrency:
-  {% raw -%}
+  {% raw %}
   group: "${{ github.head_ref || github.ref }}-${{ github.workflow }}"
-  {%- endraw %}
+  {% endraw %}
   cancel-in-progress: true
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      {%- if package_manager == 'poetry' %}
+      {%- if values.package_manager == 'poetry' %}
       - name: Install Poetry
         run: pipx install poetry==1.8.3
       {%- endif %}
@@ -28,8 +28,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version-file: .python-version
-          cache: {{ package_manager }}
-      {%- if package_manager == 'pipenv' %}
+          cache: ${{ values.package_manager }}
+      {%- if values.package_manager == 'pipenv' %}
 
       - name: Install Pipenv
         run: pipx install pipenv==2025.0.3

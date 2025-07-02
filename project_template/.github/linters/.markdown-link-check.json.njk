@@ -1,10 +1,10 @@
 {
-  {% if is_public_repo -%}
+  {% if values.is_public_repo -%}
   "ignorePatterns": [],
   {%- else -%}
   "ignorePatterns": [
     {
-      "pattern": "{{ repository_owner }}/{{ repository_name }}"
+      "pattern": "${{ values.repository_owner }}/${{ values.repository_name }}"
     }
   ],
   {%- endif %}

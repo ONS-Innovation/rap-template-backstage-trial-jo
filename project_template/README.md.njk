@@ -1,16 +1,15 @@
-{%- import 'macros.jinja' as macros with context -%}
-# {{ repository_name }}
+# ${{ values.repository_name }}
 
-[![Build Status](https://github.com/{{ repository_owner }}/{{ repository_name }}/actions/workflows/ci.yml/badge.svg)](https://github.com/{{ repository_owner }}/{{ repository_name }}/actions/workflows/ci.yml)
-[![Build Status](https://github.com/{{ repository_owner }}/{{ repository_name }}/actions/workflows/security-scan.yml/badge.svg)](https://github.com/{{ repository_owner }}/{{ repository_name }}/actions/workflows/security-scan.yml)
-{%- if is_public_repo %}
-[![Build Status](https://github.com/{{ repository_owner }}/{{ repository_name }}/actions/workflows/codeql.yml/badge.svg)](https://github.com/{{ repository_owner }}/{{ repository_name }}/actions/workflows/codeql.yml)
+[![Build Status](https://github.com/${{ values.repository_owner }}/${{ values.repository_name }}/actions/workflows/ci.yml/badge.svg)](https://github.com/${{ values.repository_owner }}/${{ values.repository_name }}/actions/workflows/ci.yml)
+[![Build Status](https://github.com/${{ values.repository_owner }}/${{ values.repository_name }}/actions/workflows/security-scan.yml/badge.svg)](https://github.com/${{ values.repository_owner }}/${{ values.repository_name }}/actions/workflows/security-scan.yml)
+{%- if values.is_public_repo %}
+[![Build Status](https://github.com/${{ values.repository_owner }}/${{ values.repository_name }}/actions/workflows/codeql.yml/badge.svg)](https://github.com/${{ values.repository_owner }}/${{ values.repository_name }}/actions/workflows/codeql.yml)
 {%- endif %}
 [![Linting: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![{{ package_manager }}-managed](https://img.shields.io/badge/{{ package_manager }}-managed-blue)]({{ macros.package_manager_url() }})
-[![License - MIT](https://img.shields.io/badge/licence%20-MIT-1ac403.svg)](https://github.com/{{ repository_owner }}/{{ repository_name }}/blob/main/LICENSE)
+[![${{ values.package_manager }}-managed](https://img.shields.io/badge/${{ values.package_manager }}-managed-blue)](${{ values.package_manager_url }})
+[![License - MIT](https://img.shields.io/badge/licence%20-MIT-1ac403.svg)](https://github.com/${{ values.repository_owner }}/${{ values.repository_name }}/blob/main/LICENSE)
 
-{{ repository_description }}
+${{ values.repository_description }}
 
 **IMPORTANT**: This README was generated from a template.
 Please update it with specific information about your project, including:
@@ -47,7 +46,7 @@ To get a local copy up and running, follow these simple steps.
 Ensure you have the following installed:
 
 1. **Python**: Version specified in `.python-version`.
-2. **[{{ package_manager | title }}]({{ macros.package_manager_url() }})**: This is used to manage package dependencies and virtual
+2. **[${{ values.package_manager | title }}](${{ values.package_manager_url }})**: This is used to manage package dependencies and virtual
    environments.
 3. **Operation System**: MacOS
 
@@ -56,13 +55,13 @@ Ensure you have the following installed:
 1. Clone the repository and install the required dependencies.
 
 ```bash
-git clone https://github.com/{{ repository_owner }}/{{ repository_name }}.git
+git clone https://github.com/${{ values.repository_owner }}/${{ values.repository_name }}.git
 ```
 
 2. Install dependencies
 
-[{{ package_manager | title }}]({{ macros.package_manager_url() }}) is used to manage dependencies in this project. For more information, read
-the [{{ package_manager | title }} documentation]({{ macros.package_manager_url() }}).
+[${{ values.package_manager | title }}](${{ values.package_manager_url }}) is used to manage dependencies in this project. For more information, read
+the [${{ values.package_manager | title }} documentation](${{ values.package_manager_url }}).
 
 To install all dependencies, including development dependencies, run:
 
@@ -134,7 +133,7 @@ make security-scan
 
 ### GitHub actions
 
-Linting/formatting and Security Scanning GitHub actions are enabled by default on template repositories. If you go to the `Actions` tab on your [repository](https://github.com/{{repository_owner}}/{{repository_name}}/actions), you can view all the workflows for the repository. If an action has failed, it will show a red circle with a cross in it.
+Linting/formatting and Security Scanning GitHub actions are enabled by default on template repositories. If you go to the `Actions` tab on your [repository](https://github.com/${{ values.repository_owner }}/${{ values.repository_name }}/actions), you can view all the workflows for the repository. If an action has failed, it will show a red circle with a cross in it.
 
 To find out more details about why it failed:
 
@@ -150,11 +149,11 @@ The project includes pre-commit hooks to automatically run linting, formatting, 
 
 1. Install **pre-commit** using your selected package manager:
 
-{% if package_manager == 'poetry' %}
+{% if values.package_manager == 'poetry' %}
 ```bash
 poetry add --group dev pre-commit
 ```
-{% elif package_manager == 'pipenv' %}
+{% elif values.package_manager == 'pipenv' %}
 ```bash
 pipenv install --dev pre-commit
 ```
