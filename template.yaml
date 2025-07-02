@@ -187,6 +187,7 @@ spec:
         description: ${{ parameters.repository_description }}
         repoVisibility: ${{ parameters.repository_visibility }}
         defaultBranch: ${{ parameters.default_branch }}
+        access:  ${{ parameters.code_owners }}
 
         hasIssues: true
         hasProjects: false
