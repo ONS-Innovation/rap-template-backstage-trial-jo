@@ -11,7 +11,7 @@ metadata:
   annotations:
     backstage.io/techdocs-ref: dir:.
 spec:
-  owner: "group:group:default/spotify-backstage-trial-team"
+  owner: "group:default/spotify-backstage-trial-team"
   type: python
 
   parameters:
