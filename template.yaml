@@ -187,6 +187,7 @@ spec:
         description: ${{ parameters.repository_description }}
         repoVisibility: ${{ parameters.repository_visibility }}
         defaultBranch: ${{ parameters.default_branch }}
+        access: ${{ user.entity.metadata.annotations['github.com/user-login'] }}
   
         hasIssues: true
         hasProjects: false
