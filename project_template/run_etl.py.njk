@@ -1,7 +1,14 @@
 """Example script demonstrating how to use the ETL pipeline."""
 
+from ${{ values.module_name }} import (
+    DataExtractor,
+    DataLoader,
+    DataTransformer,
+    ETLPipeline,
+    run_etl,
+)
 import logging
-from ${{ values.module_name }} import ETLPipeline, run_etl
+
 
 def main():
     """Main function to demonstrate ETL pipeline usage."""
@@ -20,7 +27,7 @@ def main():
         output_path=output_file,
         source_type="csv",
         output_format="csv",
-        apply_transforms=True
+        apply_transforms=True,
     )
 
     if success:
@@ -36,8 +43,8 @@ def main():
 
     # Apply some filters
     filters = {
-        'quantity': {'min': 1},  # Only products with quantity >= 1
-        'category': ['Electronics', 'Furniture']  # Only these categories
+        "quantity": {"min": 1},  # Only products with quantity >= 1
+        "category": ["Electronics", "Furniture"],  # Only these categories
     }
 
     success = pipeline.run_pipeline(
@@ -46,7 +53,7 @@ def main():
         source_type="csv",
         output_format="csv",
         apply_transforms=True,
-        filters=filters
+        filters=filters,
     )
 
     if success:
@@ -64,8 +71,6 @@ def main():
 
     # Method 3: Using individual components
     logger.info("3. Using individual ETL components...")
-
-    from ${{ values.module_name }} import DataExtractor, DataTransformer, DataLoader
 
     # Extract
     extractor = DataExtractor()
