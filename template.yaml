@@ -43,7 +43,10 @@ spec:
           ui:field: OwnerPicker
           ui:options:
             catalogFilter:
-              kind: [User, Group]
+              - kind: User
+                metadata.annotations.github.com/user-login: { exists: true }
+              - kind: Group
+                metadata.annotations.github.com/team-slug: { exists: true }
         catalog_system:
           title: Catalog System
           type: string
