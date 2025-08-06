@@ -10,6 +10,7 @@ metadata:
     - rap
   annotations:
     backstage.io/techdocs-ref: dir:.
+    backstage.io/source-template: "python-etl-template"
 spec:
   owner: "group:default/spotify-backstage-trial-team"
   type: python
