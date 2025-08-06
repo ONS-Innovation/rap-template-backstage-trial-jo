@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "{{ repository_name }}"
+name = "${{ values.repository_name }}"
 version = "0.1.0"
-description = "{{ repository_description }}"
-authors = ["{{ repository_owner }}"]
+description = "${{ values.repository_description }}"
+authors = ["${{ values.repository_owner }}"]
 license = "MIT"
 readme = "README.md"
 package-mode = false
