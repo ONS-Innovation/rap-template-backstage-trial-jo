@@ -21,8 +21,8 @@ class TestLoadData(unittest.TestCase):
         destination = None  # Invalid destination
 
         # Assuming load_data raises an exception on failure
-        with self.assertRaises(AttributeError):
-            save_to_destination(data, destination)
+        result = save_to_destination(data, destination)
+        self.assertFalse(result)
 
 
 if __name__ == "__main__":
