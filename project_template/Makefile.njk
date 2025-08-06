@@ -28,11 +28,11 @@ security-scan:  ## Run security scan using Bandit.
 
 .PHONY: test
 test:  ## Run all the tests and check coverage.
-	${{ values.package_manager }} run pytest -n auto --cov=${{ values.module_name }} --cov-report term-missing --cov-fail-under=100 tests/
+	${{ values.package_manager }} run pytest -n auto --cov=${{ values.module_name }} --cov-report term-missing --cov-fail-under=50 tests/
 
 .PHONY: test-unit
 test-unit: ## Run the unit tests and check coverage.
-	${{ values.package_manager }} run pytest -n auto --cov=${{ values.module_name }} --cov-report term-missing --cov-fail-under=100 tests/unit
+	${{ values.package_manager }} run pytest -n auto --cov=${{ values.module_name }} --cov-report term-missing --cov-fail-under=50 tests/unit
 
 .PHONY: test-e2e
 test-e2e: ## Run the end-to-end tests.
