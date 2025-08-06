@@ -246,7 +246,7 @@ The structure of the templated repo is as follows:
 │   ├── ISSUE_TEMPLATE.md             # Template for issues raised in the repository.
 │   ├── PULL_REQUEST_TEMPLATE.md      # Template for pull requests raised in the repository.
 │   └── release.yml                   # Configuration on how to categorise changes into a structured changelog when using 'Generate release notes' feature.
-├── ${{ values.module_name }}         # Main Python package directory for the project, containing source code.
+├── app                               # Main Python package directory for the project, containing source code.
 │   ├── __init__.py                   # Initialises the directory as a Python package, allowing its modules to be imported.
 │   ├── extract.py                    # Example ETL extract module.
 │   ├── transform.py                  # Example ETL transform module.
