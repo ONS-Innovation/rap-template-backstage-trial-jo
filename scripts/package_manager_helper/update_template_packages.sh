@@ -14,17 +14,9 @@ handle_package_manager() {
     rm -f Pipfile.lock poetry.lock
 
     local package_manager=$1
-    local has_copier=$2
     # Determine prefix based on copier
     dev_deps=("${DEV_DEPENDENCIES[@]}")
     deps=("${DEPENDENCIES[@]}")
-    if [[ "${has_copier}" == "true" ]]; then
-        dev_deps=("copier" "${DEV_DEPENDENCIES[@]}")
-        deps=("copier" "${DEPENDENCIES[@]}")
-        prefix="${package_manager}_copier"
-    else
-        prefix="not_${package_manager}_copier"
-    fi
 
     # Install development dependencies
     if [[ "${package_manager}" == "poetry" ]]; then
@@ -37,21 +29,19 @@ handle_package_manager() {
 
     # Copy lock files to the project_template
     if [[ "${package_manager}" == "poetry" ]]; then
-        cp -p poetry.lock "${TEMPLATE_DIR}/{% if $prefix %}poetry.lock{% endif %}.jinja"
-        cp -p pyproject.toml "${TEMPLATE_DIR}/{% if $prefix %}pyproject.toml{% endif %}.jinja"
+        cp -p poetry.lock "${TEMPLATE_DIR}/\${{ 'poetry.lock' if values.package_manager == 'poetry' }}.njk"
+        cp -p pyproject.toml "${TEMPLATE_DIR}/\${{ 'pyproject.toml' if values.package_manager == 'poetry' }}.njk"
     elif [[ "${package_manager}" == "pipenv" ]]; then
-        cp -p Pipfile.lock "${TEMPLATE_DIR}/{% if $prefix %}Pipfile.lock{% endif %}.jinja"
-        cp -p Pipfile "${TEMPLATE_DIR}/{% if $prefix %}Pipfile{% endif %}.jinja"
+        cp -p Pipfile.lock "${TEMPLATE_DIR}/\${{ 'Pipfile.lock' if values.package_manager == 'pipenv' }}.njk"
+        cp -p Pipfile "${TEMPLATE_DIR}/\${{ 'Pipfile' if values.package_manager == 'pipenv' }}.njk"
     fi
 
     echo "Copied lock files for ${package_manager}"
 }
 
 # Execute the function with different configurations
-handle_package_manager poetry false
-handle_package_manager poetry true
-handle_package_manager pipenv false
-handle_package_manager pipenv true
+handle_package_manager poetry
+handle_package_manager pipenv
 
 # Undo git changes and remove the lock files
 git restore Pipfile pyproject.toml
