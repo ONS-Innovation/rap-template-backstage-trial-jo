@@ -25,7 +25,9 @@ spec:
         repository_owner:
           title: Organisation Name
           type: string
-          description: What is your GitHub organisation name? (e.g. ONS-Innovation, ONSDigital)
+          enum:
+            - ONS-Innovation
+          description: What is the organisation name? (e.g. ONS-Innovation)
           default: ONS-Innovation
         repository_name:
           title: Project Name
