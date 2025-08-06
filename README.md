@@ -246,15 +246,18 @@ The structure of the templated repo is as follows:
 │   ├── ISSUE_TEMPLATE.md             # Template for issues raised in the repository.
 │   ├── PULL_REQUEST_TEMPLATE.md      # Template for pull requests raised in the repository.
 │   └── release.yml                   # Configuration on how to categorise changes into a structured changelog when using 'Generate release notes' feature.
-├── app                               # Main Python package directory for the project, containing source code.
+├── ${{ values.module_name }}         # Main Python package directory for the project, containing source code.
 │   ├── __init__.py                   # Initialises the directory as a Python package, allowing its modules to be imported.
-│   └── calculator.py                 # A simple Python class for demonstration purposes.
+│   ├── extract.py                    # Example ETL extract module.
+│   ├── transform.py                  # Example ETL transform module.
+│   └── load.py                       # Example ETL load module.
 └── tests                             # Contains all test files.
-│   ├── __init__.py                   # Marks the directory as a Python package, enabling the discovery of test modules by testing frameworks.
-│   └── unit                          # Directory for unit tests, containing tests for individual components of the project.
-│       ├── __init__.py               # Further organises tests into a Python package structure.
-│       ├── conftest.py               # Contains pytest fixtures and configurations, applicable to all tests in the directory.
-│       └── test_calculator.py        # Unit tests for the functionality provided by sample python code for demonstration purposes.
+    ├── e2e                           # Directory for end-to-end tests.
+    │   └── test_etl_workflow.py      # End-to-end tests for the ETL workflow.
+    └── unit                          # Directory for unit tests, containing tests for individual components of the project.
+        ├── test_extract.py           # Unit tests for the extract module.
+        ├── test_transform.py         # Unit tests for the transform module.
+        └── test_load.py              # Unit tests for the load module.
 ├── .copier-answers.yml               # Configuration file for Copier, specifying the answers to prompts when generating the project. Required for project updates.
 ├── .editorconfig                     # Configuration file for maintaining consistent coding styles for multiple developers working on the same project across various editors and IDEs.
 ├── .gitattributes                    # Git attributes file for defining attributes per path, such as line endings and merge strategies.

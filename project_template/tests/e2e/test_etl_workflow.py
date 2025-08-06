@@ -1,14 +1,14 @@
 import unittest
-
-from etl.extract import extract_data
-from etl.load import load_data
-from etl.transform import transform_data
+import pandas as pd
+from ${{ values.module_name }}.extract import extract_from_source
+from ${{ values.module_name }}.load import save_to_destination
+from ${{ values.module_name }}.transform import apply_business_rules
 
 
 class TestETLWorkflow(unittest.TestCase):
     def setUp(self):
-        self.raw_data = extract_data()
-        self.transformed_data = transform_data(self.raw_data)
+        self.raw_data = extract_from_source("example_data.csv")
+        self.transformed_data = apply_business_rules(self.raw_data)
 
     def test_extract_data(self):
         self.assertIsNotNone(self.raw_data)
@@ -20,13 +20,13 @@ class TestETLWorkflow(unittest.TestCase):
         # Add more assertions based on expected transformations
 
     def test_load_data(self):
-        result = load_data(self.transformed_data, "test_destination")
+        result = save_to_destination(self.transformed_data, "test_destination.csv")
         self.assertTrue(result)
 
     def test_etl_workflow(self):
-        raw_data = extract_data()
-        transformed_data = transform_data(raw_data)
-        result = load_data(transformed_data, "test_destination")
+        raw_data = extract_from_source("example_data.csv")
+        transformed_data = apply_business_rules(raw_data)
+        result = save_to_destination(transformed_data, "test_destination.csv")
         self.assertTrue(result)
 
 

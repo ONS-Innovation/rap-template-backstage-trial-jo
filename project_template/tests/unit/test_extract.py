@@ -1,13 +1,12 @@
 import unittest
 
-from etl.extract import extract_data
+from ${{ values.module_name }}.extract import extract_from_source
 
 
 class TestExtractData(unittest.TestCase):
     def test_extract_data_success(self):
         # Assuming extract_data returns a list of records
-        data = extract_data()
-        self.assertIsInstance(data, list)
+        data = extract_from_source("example_data.csv")
         self.assertGreater(len(data), 0)
 
     def test_extract_data_empty(self):
@@ -19,7 +18,7 @@ class TestExtractData(unittest.TestCase):
     def test_extract_data_invalid_source(self):
         # Test for handling of invalid data source
         with self.assertRaises(ValueError):
-            extract_data(source="invalid_source")
+            extract_from_source(source="invalid_source.csv", source_type="invalid")
 
 
 if __name__ == "__main__":
