@@ -20,14 +20,14 @@ class TestETLWorkflow(unittest.TestCase):
         # Add more assertions based on expected transformations
 
     def test_load_data(self):
-        # result = load_data(self.transformed_data, "test_destination")
-        pass
+        result = load_data(self.transformed_data, "test_destination")
+        self.assertTrue(result)
 
     def test_etl_workflow(self):
         raw_data = extract_data()
         transformed_data = transform_data(raw_data)
-        # result = load_data(transformed_data, "test_destination")
-        pass
+        result = load_data(transformed_data, "test_destination")
+        self.assertTrue(result)
 
 
 if __name__ == "__main__":
