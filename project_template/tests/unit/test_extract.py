@@ -18,7 +18,7 @@ class TestExtractData(unittest.TestCase):
 
     def test_extract_data_invalid_source(self):
         # Test for handling of invalid data source
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             extract_data(source="invalid_source")
 
 
