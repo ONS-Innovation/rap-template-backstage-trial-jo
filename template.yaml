@@ -15,18 +15,20 @@ spec:
   type: python
 
   parameters:
-    - title: Basic Settings
+    - title: Project Settings
       required:
         - repository_name
         - repository_description
         - repository_owner
         - catalog_owner
-        - code_owners
-        - repository_visibility
-        - default_branch
       properties:
+        repository_owner:
+          title: Organisation Name
+          type: string
+          description: What is your GitHub organisation name? (e.g. ONS-Innovation, ONSDigital)
+          default: ONS-Innovation
         repository_name:
-          title: Name
+          title: Project Name
           type: string
           description: What is your repository name? (Use hyphens or underscores for readability. Avoid special characters, spaces, or uppercase letters - e.g. my-awesome-project)
           ui:field: EntityNamePicker
@@ -34,11 +36,6 @@ spec:
           title: Description
           type: string
           description: What is your repository description?
-        repository_owner:
-          title: Repo Organization
-          type: string
-          description: What is the organization for your repository? (e.g. your GitHub username)
-          default: ONS-Innovation
         catalog_owner:
           title: Catalog Owner
           type: string
@@ -55,15 +52,20 @@ spec:
           ui:options:
             catalogFilter:
               - kind: System
-        code_owners:
-          title: Code Owners
-          type: string
-          description: Who should be the code owners for this repository? (GitHub username or team, e.g. @username or @ONSdigital/team-name)
-          default: "@ONSdigital"
+
+    - title: Repo Settings
+      required:
+        - repository_visibility
+        - default_branch
+      properties:
+        repo_settings:
+          title: Use recommended repo settings?
+          type: boolean
+          default: true
         repository_visibility:
           title: Visibility
           type: string
-          description: What is your repository visibility?
+          description: What is your repository visibility? (public, internal, private)
           default: public
           enum:
             - public
@@ -73,13 +75,6 @@ spec:
           title: What is your default branch name?
           type: string
           default: main
-
-    - title: Repo Settings
-      properties:
-        repo_settings:
-          title: Use recommended repo settings?
-          type: boolean
-          default: true
 
       dependencies:
         repo_settings:
@@ -155,6 +150,11 @@ spec:
                     description: What is your Python module name? (e.g. app/src/<module_name>)
 
   steps:
+    - id: fetch-entity
+      name: Fetch Catalog Entity
+      action: catalog:fetch
+      input:
+        entityRef: ${{ parameters.catalog_owner }}
     - id: template
       name: Fetch Skeleton
       action: fetch:template
@@ -167,7 +167,7 @@ spec:
           repository_owner: ${{ parameters.repository_owner }}
           catalog_owner: ${{ parameters.catalog_owner }}
           catalog_system: ${{ parameters.catalog_system }}
-          code_owners: ${{ parameters.code_owners }}
+          code_owners: ${{ steps['fetch-entity'].output.entity.metadata.annotations['github.com/team-slug'] or steps['fetch-entity'].output.entity.metadata.annotations['github.com/user-login'] or user.entity.metadata.annotations['github.com/user-login'] }}
           repository_visibility: ${{ parameters.repository_visibility }}
           default_branch: ${{ parameters.default_branch }}
 
