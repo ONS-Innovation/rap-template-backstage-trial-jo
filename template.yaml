@@ -174,7 +174,6 @@ spec:
         templateFileExtension: true
         values:
           repository_name: ${{ parameters.repository_name }}
-          tester_name: ${{ parameters.tester_name}}
           repository_description: ${{ parameters.repository_description }}
           repository_owner: ${{ parameters.repository_owner }}
           catalog_owner: ${{ parameters.catalog_owner }}
