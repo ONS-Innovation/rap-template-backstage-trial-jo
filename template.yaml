@@ -30,7 +30,7 @@ spec:
           description: What is the organisation name? (e.g. ONS-Innovation)
           default: ONS-Innovation
         repository_name:
-          title: Project Name
+          title: Repository
           type: string
           description: What is your repository name? (Use hyphens or underscores for readability. Avoid special characters, spaces, or uppercase letters - e.g. my-awesome-project)
           ui:field: EntityNamePicker
