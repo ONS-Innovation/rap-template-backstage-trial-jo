@@ -29,8 +29,13 @@ spec:
             - ONS-Innovation
           description: What is the organisation name? (e.g. ONS-Innovation)
           default: ONS-Innovation
+        tester_name:
+          title: Tester Name
+          type: string
+          description: What is your name? (e.g. Jozef Krajcsirik)
+          default: Jozef Krajcsirik
         repository_name:
-          title: Repository
+          title: Project Name
           type: string
           description: What is your repository name? (Use hyphens or underscores for readability. Avoid special characters, spaces, or uppercase letters - e.g. my-awesome-project)
           ui:field: EntityNamePicker
